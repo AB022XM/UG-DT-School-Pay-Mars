@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SchoolPayApplicationApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="school-pay-application" />
+    <target name="&lt;none&gt;:&lt;none&gt;" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ug.co.absa.schoolfees.SchoolPayApplicationApp" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

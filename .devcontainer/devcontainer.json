@@ -1,5 +1,5 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/java
+/*For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/java*/
 {
   "name": "SchoolPayApplication",
   "build": {
@@ -21,7 +21,7 @@
     "java.home": "/docker-java-home"
   },
 
-  // Add the IDs of extensions you want installed when the container is created.
+  /*Add the IDs of extensions you want installed when the container is created.*/
   "extensions": [
     "angular.ng-template",
     "christian-kohler.npm-intellisense",

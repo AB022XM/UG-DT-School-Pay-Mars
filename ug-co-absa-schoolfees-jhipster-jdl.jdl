@@ -1,0 +1,206 @@
+
+/*
+ * This is a monolith schoolfees payment service  with Angilar UI,API
+ ** and aiuthentication and two microservice applications
+ * This uses JHipsterto kick start the project
+ */
+application {
+    config {
+        baseName Schoolpay,
+        applicationType monolith,
+        packageName ug.co.absa.schoolfees,
+        authenticationType oauth2
+        databaseType sql,
+        devDatabaseType mysql,
+        prodDatabaseType mysql,
+        clientFramework angular,
+        cacheProvider ehcache,
+        buildTool maven,
+        serverPort 9001,
+        enableSwaggerCodegen  true,
+        testFrameworks [cucumber,gatling,protractor]
+
+    }
+    entities *
+    service * with serviceClass
+    search * with elasticsearch
+    dto * with mapstruct
+
+
+
+
+}
+
+/**This enum shows all available payment channels
+ * @author Banada Ismael ABSA DT team
+ */
+enum PaymentChannel {
+    // But not this one!
+    OVERTHECOUNTER(COUNTER),ABSAINTERNETBANKING(INTERNETBANKING),
+    POINTOFSALE(POS),MOBILEAPP(APP),CHATBOT(ABBY),USSD(USSD)
+}
+/*enum AmolStatus {
+    SUCCESS(success), FAILED(failed)
+}
+
+enum RecodeStatus {
+    ACTIVE("1"), INACTIVE("0")
+}*/
+
+/**
+ * This is a student class,
+ * @author Banada Ismael ABSA DT team
+ */
+entity Student {
+    recordUniqueIdentifier UUID required,//this is a field to add an extra unique identifier.
+    studentId Integer required  minlength(3) maxlength (50), //this is a unique identifier for students
+    firstName String required minlength(3) maxlength(30),
+    middleName String required minlength(3) maxlength(30),
+    lastName String required minlength(3) maxlength(30),
+    paymentCode String required minlength(3) maxlength(20),
+    dateOfBirth LocalDate required,
+    outStandingAmount String required minlength(3) maxlength(8),
+    status Boolean required, //this field is used to check whether a record is active or inactive
+    studentContact String ,
+    studentAddress String ,
+    freeField1 String ,
+    freeField2 String ,
+    freeField3 String ,
+    createdAt LocalDate ,
+    updatedAt LocalDate ,
+    isDeleted LocalDate
+
+}
+entity StudentClass {
+    recordUniqueIdentifier UUID required,//thid is a field to add an extra unique identifier.
+    studentClassId Integer unique required,//this is a unique identifier for student classes
+    studentClassCode String required,
+    studentClassName String required,
+    studentClassDescription String required,
+    status Boolean required, //this field is used to check whether a record is active or inactive
+    freeField1 String ,
+    freeField2 String ,
+    freeField3 String ,
+    createdAt LocalDate ,
+    updatedAt LocalDate ,
+    isDeleted LocalDate
+
+}
+
+entity ContactInfo
+{
+    recordUniqueIdentifier UUID required,//thid is a field to add an extra unique identifier.
+    contactId String unique, //this is a unique identifier for contacts
+    phoneNumber String ,
+    emailAddress String ,
+    parentsPhoneNumber String ,
+    createdAt LocalDate ,
+    updatedAt LocalDate ,
+    /**this is used to identify whether the
+   ** record has been deleted or not (Y-deleted, N-Not deleted)**/
+    isDeleted LocalDate
+}
+
+entity Address
+{
+    recordUniqueIdentifier UUID required,//thid is a field to add an extra unique identifier.
+    addressId Integer required, //this is a unique identifier for address
+    addresssName String required,
+    addressDescription String,
+    createdAt LocalDate ,
+    updatedAt LocalDate ,
+    /**this is used to identify whether the
+  ** record has been deleted or not (Y-deleted, N-Not deleted)**/
+    isDeleted LocalDate
+}
+
+entity School {
+    recordUniqueIdentifier UUID required,//thid is a field to add an extra unique identifier.
+    schoolId Integer required,  //this is a unique identifier for school
+    schoolCode String required,
+    schoolPhoneNumber String,
+    schoolAlternativePhoneNumber String,
+    schoolemailAddess String,
+    schoolName String required,
+    status Boolean required, //this field is used to check whether a record is active or inactive location String ,
+    freeField1 String ,
+    freeField2 String ,
+    freeField3 String ,
+    createdAt LocalDate ,
+    updatedAt LocalDate ,
+    isDeleted LocalDate
+}
+
+entity Payment {
+    recordUniqueIdentifier UUID required,//thid is a field to add an extra unique identifier.
+    returnCode String  maxlength(3),
+    returnMessage String required maxlength(50),
+    processTimestamp LocalDate ,
+    feeAmount Integer required minlength(3) maxlength(10),
+    feeDescription String minlength(3) maxlength(200),
+    feeDueFromDate LocalDate  ,
+    feeDueToDate LocalDate
+    feeId String required minlength(1) maxlength(50),
+    dateOfBirth LocalDate,
+    firstName String required minlength(3) maxlength(50),
+    lastName String required minlength(3) maxlength(50),
+    middleName String required minlength(3) maxlength(50),
+    outstandingAmount Integer required minlength(3) maxlength(50),
+    paymentCode String required minlength(3) maxlength(50),
+    schoolCode String required minlength(3) maxlength(50),
+    schoolName String required minlength(3) maxlength(200),
+    studentClass String required minlength(3) maxlength(50),
+    paymentChannel PaymentChannel required,
+    freeField1 String ,
+    freeField2 String ,
+    freeField3 String ,
+    createdAt LocalDate ,
+    updatedAt LocalDate ,
+
+}
+entity AssociatedFees {
+    recordUniqueIdentifier UUID required,//thid is a field to add an extra unique identifier.
+    feeId Integer required,
+    feeCode String required,
+    feeDescription String,
+    status Boolean required, //this field is used to check whether a record is active or inactive
+    freeField1 String ,
+    freeField2 String ,
+    freeField3 String ,
+    createdAt LocalDate ,
+    updatedAt LocalDate ,
+    /**this is used to identify whether the
+  ** record has been deleted or not (Y-deleted, N-Not deleted)**/
+    isDeleted LocalDate
+}
+entity PaymentChannel {
+    recordUniqueIdentifier UUID required,//thid is a field to add an extra unique identifier.
+    channelId Integer required,
+    channelCode Integer required,
+    channelName Integer required,
+    status Boolean required, //this field is used to check whether a record is active or inactive
+    /**This is an additional field
+    **created in case there is need to
+    **add a field without the need to alter database configs **/
+    freeField1 String ,
+    /**This is an additional field
+   **created in case there is need to
+   **add a field without the need to alter database configs **/
+    freeField2 String ,
+    /**This is an additional field
+   **created in case there is need to
+   **add a field without the need to alter database configs **/
+    freeField3 String ,
+    createdAt ZonedDateTime ,
+    updatedAt LocalDate ,
+    /**this is used to identify whether the
+  ** record has been deleted or not (Y-deleted, N-Not deleted)**/
+    isDeleted Boolean
+}
+relationship OneToMany {
+    StudentClass to AssociatedFees
+    StudentClass to Student
+   School to Student
+    Student to Payment
+}
+

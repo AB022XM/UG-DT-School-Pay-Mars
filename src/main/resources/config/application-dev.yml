@@ -20,6 +20,7 @@ logging:
     org.hibernate.SQL: DEBUG
     ug.co.absa.schoolfees: DEBUG
 
+#sserver=UGPBHKMAPP0002;port=3306;user=BillerUser;database=cdmdb;password=B!ll3r@2022!
 spring:
   devtools:
     restart:
@@ -32,12 +33,12 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/SchoolPayApplication?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
-    username: root
-    password:
+    url: jdbc:mysql://UGPBHKMAPP0002:3306/SchoolPayApplication?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: BillerUser
+    password: B!ll3r@2022!
     hikari:
       poolName: Hikari
-      auto-commit: false
+      auto-commit: true
       data-source-properties:
         cachePrepStmts: true
         prepStmtCacheSize: 250
@@ -49,7 +50,7 @@ spring:
     contexts: dev, faker
   mail:
     host: localhost
-    port: 25
+    port: 8025
     username:
     password:
   messages:
@@ -67,45 +68,153 @@ server:
 # ===================================================================
 
 jhipster:
-  cache: # Cache configuration
+  # Thread pool that will be used for asynchronous method calls in JHipster
+  async:
+    core-pool-size: 2 # Initial pool size
+    max-pool-size: 50 # Maximum pool size
+    queue-capacity: 10000 # Queue capacity of the pool
+
+  # HTTP configuration
+  http:
+    cache: # Used by io.github.jhipster.web.filter.CachingHttpHeadersFilter
+      timeToLiveInDays: 1461 # Static assets are cached for 4 years by default
+
+  # Hibernate 2nd level cache, used by CacheConfiguration
+  cache:
+    hazelcast: # Hazelcast configuration
+      time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
+      backup-count: 1 # Number of objects backups
+      # Configure the Hazelcast management center
+      # Full reference is available at: http://docs.hazelcast.org/docs/management-center/3.9/manual/html/Deploying_and_Starting.html
+      management-center:
+        enabled: false # Hazelcast management center is disabled by default
+        update-interval: 3 # Updates are sent to the Hazelcast management center every 3 seconds by default
+        # Default URL for Hazelcast management center when using JHipster's Docker Compose configuration
+        # See src/main/docker/hazelcast-management-center.yml
+        # Warning, the default port is 8180 as port 8080 is already used by JHipster
+        url: http://localhost:8180/mancenter
     ehcache: # Ehcache configuration
       time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
       max-entries: 100 # Number of objects in each cache entry
-  # CORS is only enabled by default with the "dev" profile
+    caffeine: # Caffeine configuration
+      time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
+      max-entries: 100 # Number of objects in each cache entry
+    infinispan: #Infinispan configuration
+      config-file: default-configs/default-jgroups-tcp.xml
+      # local app cache
+      local:
+        time-to-live-seconds: 60 # By default objects stay 1 hour (in minutes) in the cache
+        max-entries: 100 # Number of objects in each cache entry
+      #distributed app cache
+      distributed:
+        time-to-live-seconds: 60 # By default objects stay 1 hour (in minutes) in the cache
+        max-entries: 100 # Number of objects in each cache entry
+        instance-count: 1
+      #replicated app cache
+      replicated:
+        time-to-live-seconds: 60 # By default objects stay 1 hour (in minutes) in the cache
+        max-entries: 100 # Number of objects in each cache entry
+    # Memcached configuration
+    # Uses the Xmemcached library, see https://github.com/killme2008/xmemcached
+    memcached:
+      # Disabled by default in dev mode, as it does not work with Spring Boot devtools
+      enabled: true
+      servers: localhost:11211 # Comma or whitespace separated list of servers' addresses
+      expiration: 300 # Expiration time (in seconds) for the cache
+      use-binary-protocol: true # Binary protocol is recommended for performance (and security)
+      authentication:# if authentication is required you can set it with these parameters. Disabled by default
+        # username: unset by default
+        # password: unset by default
+    redis: # Redis configuration
+      expiration: 3600 # By default objects stay 1 hour (in seconds) in the cache
+      server: redis://localhost:6379 # Server address
+      cluster: false
+      subscriptionConnectionMinimumIdleSize: 1
+
+  #mhsendmail test@mailhog.local <<EOF
+  #From: App <app@mailhog.local>
+  #To: Test <test@mailhog.local>
+
+  # E-mail properties
+  mail:
+    enabled: true # If e-mail sending is enabled. The standard `spring.mail` keys will need to be configured
+    from: app@mailhog.local # The default "from" address for e-mails
+    base-url: http://localhost:8025/ # URL to the application, used inside e-mails
+
+  # Spring Security specific configuration
+  security:
+    remember-me: # JHipster secure implementation of the remember-me mechanism, for session-based authentication
+      # security key (this key should be unique for your application, and kept secret)
+      key: 0b32a651e6a65d5731e869dc136fb301b0a8c0e4
+    authentication:
+      jwt: # JHipster specific JWT implementation
+        # The secret token should be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line).
+        # If both properties are configured, the `secret` property has a higher priority than the `base64-secret` property.
+        secret: # JWT secret key in clear text (not recommended)
+        base64-secret: # JWT secret key encoded in Base64 (recommended)
+        token-validity-in-seconds: 86400 # Token is valid 24 hours
+        token-validity-in-seconds-for-remember-me: 2592000 # Remember me token is valid 30 days
+
+  # Swagger configuration
+  swagger:
+    default-include-pattern: /api/.*
+    title: School fees payment API
+    description: School fees payment  API documentation
+    version: 0.0.1
+    terms-of-service-url:
+    contact-name: Banada Ismael
+    contact-url:
+    contact-email: ismael.banada@absa.africa
+    license:
+    license-url:
+    host:
+    protocols:
+
+  # DropWizard Metrics configuration, used by MetricsConfiguration
+  metrics:
+    jmx: # Export metrics as JMX beans
+      enabled: true # JMX is enabled by default
+    # Send metrics to a Graphite server
+    # Use the "graphite" Maven profile to have the Graphite dependencies
+    graphite:
+      enabled: false # Graphite is disabled by default
+      host: localhost
+      port: 2003
+      prefix: jhipster
+    # Send metrics to a Prometheus server
+    prometheus:
+      enabled: false # Prometheus is disabled by default
+      endpoint: /prometheusMetrics
+    logs: # Reports Dropwizard metrics in the logs
+      enabled: false
+      reportFrequency: 60 # frequency of reports in seconds
+
+  # Logging configuration, used by LoggingConfiguration
+  logging:
+    logstash: # Forward logs to Logstash over a socket
+      enabled: true # Logstash is disabled by default
+      host: localhost # Logstash server URL
+      port: 5000 # Logstash server port
+      queue-size: 512 # Queue for buffering logs
+    spectator-metrics: # Reports Netflix Spectator metrics in the logs
+      enabled: false # Spectator is disabled by default
+
+  # By default cross-origin resource sharing (CORS) is enabled in "dev" mode for
+  # monoliths and gateways.
+  # It is disabled by default in "prod" mode for security reasons, and for microservices
+  # (as you are supposed to use a gateway to access them).
+  # This configures a standard org.springframework.web.cors.CorsConfiguration
+  # Note that "exposed-headers" is mandatory for JWT-based security, which uses
+  # the "Authorization" header, and which is not a default exposed header.
   cors:
-    # Allow Ionic for JHipster by default (* no longer allowed in Spring Boot 2.4+)
-    allowed-origins: 'http://localhost:8100,https://localhost:8100,http://localhost:9000,https://localhost:9000,http://localhost:4200,https://localhost:4200'
-    # Enable CORS when running in GitHub Codespaces
-    allowed-origin-patterns: 'https://*.githubpreview.dev'
+    allowed-origins: '*'
     allowed-methods: '*'
     allowed-headers: '*'
-    exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
+    exposed-headers: 'Authorization'
     allow-credentials: true
     max-age: 1800
-  security:
-    authentication:
-      jwt:
-        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: ZDkwZTIwNjBjYmEwM2Q1YzEwMjMzZTAzN2E3NmI0NDAxNWYwODU2NjJmM2FjOTg5ZjllNWIwYWZmNzAyNTU5Yjg3MTZjMTY0NDA4MDczMWFjMjFkYzM5NWJmN2QzOTYwMTJkYmYzYmYyMmVhNjA1NmEwMTdiNmNkOTM2YTU2ZDI=
-        # Token is valid 24 hours
-        token-validity-in-seconds: 86400
-        token-validity-in-seconds-for-remember-me: 2592000
-  mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://127.0.0.1:8091
-  logging:
-    use-json-format: false # By default, logs are not in Json format
-    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
-      enabled: false
-      host: localhost
-      port: 5000
-      queue-size: 512
-# ===================================================================
-# Application specific properties
-# Add your own application properties here, see the ApplicationProperties class
-# to have type-safe configuration, like in the JHipsterProperties above
-#
-# More documentation is available at:
-# https://www.jhipster.tech/common-application-properties/
-# ===================================================================
 
-# application:
+  # Ribbon displayed on the top left-hand side of JHipster applications
+  ribbon:
+    # Comma-separated list of profiles that display a ribbon
+    display-on-active-profiles: dev

@@ -1,34 +1,207 @@
-# API-first development with OpenAPI
-# This file will be used at compile time to generate Spring-MVC endpoint stubs using openapi-generator
-openapi: '3.0.1'
+openapi: 3.0.1
 info:
-  title: 'SchoolPayApplication'
-  version: 0.0.1
-servers:
-  - url: http://localhost:8091/api
-    description: Development server
-  - url: https://localhost:8091/api
-    description: Development server with TLS Profile
-paths: {}
-components:
-  responses:
-    Problem:
-      description: error occurred - see status code and problem object for more information.
-      content:
-        'application/problem+json':
-          schema:
-            $ref: 'https://opensource.zalando.com/problem/schema.yaml#/Problem'
+  title: Swagger UI - UG-DT-School-Pay-Mars OpenAPI 3.0.1
+  description: >-
+    SchoolPay is a universal school fees payment platform, offering real-time
+    student information validation and payment reconciliation across all
+    participating schools and partner payment channels (both banks and mobile
+    payment providers). This document is for the integration interface between
+    the Schoolpay payment processing subsystem and all participating payment
+    providers. The Interface will provide four main functions
 
-  securitySchemes:
-    jwt:
-      type: http
-      description: JWT Authentication
-      scheme: bearer
-      bearerFormat: JWT
-    basic:
-      type: http
-      description: Basic Authentication
-      scheme: basic
-security:
-  - jwt: []
-  - basic: []
+    -[Validate and query student information and outstanding fees
+
+    -[Process a student payment in respect to optionally selected fees due.
+
+    -[Reverse a student payment (For banks only).
+
+    -[End of day transaction reconciliation service
+
+    Communication with the service will be by means of Web Services using SOAP
+    technology.
+
+
+    Some useful links:
+
+    - [The SChoolfees
+    repository](https://github.com/AB022XM/UG-DT-School-Pay-Mars)
+
+    - [The source API definition for the
+    UG-DT-School-Pay-Mars](https://github.com/AB022XM/UG-DT-School-Pay-Mars/blob/main/pom.xml)
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: ismael.banada@absa.africa
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Business requirements document
+  url: https://swagger.io
+servers:
+  - url: https://ugpbhkmapp0002.corp.dsarena.com:4532/schoolpay
+
+tags:
+  - name: Authenticate
+    description: Everything about your Authenticate
+
+  - name: Payment
+    description: Access to Petstore Payment
+
+  - name: Test
+    description: Operations about Test
+
+paths:
+  /api/v1/Authenticate/GetAuthToken:
+    post:
+      tags:
+        - Authenticate
+      summary: Authorize requests
+      description: 'This API is used ti '
+      operationId: validateCust
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                successAuth:
+                  value: |-
+                    {
+                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzkzOTExNjksImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzE0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzE0LyJ9.HjOnxMCm5BvmeZoyQEdsxl-1oZoN_8JxQ-fIyzDM9VM",
+                        "expiry": "2023-03-21T12:32:49.8967547+03:00"
+                    }
+  /api/v1/validate:
+    post:
+      tags:
+        - Payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ValidateRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ValidateRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                successValidate:
+                  value: |-
+                    {
+                    "accountName": "D Company 10",
+                    "returnCode": "0",
+                    "returnMessage": "SUCCESS",
+                    "externalTXNid": "345678765432",
+                    "transaction_date": null,
+                    "customerId": "200001092",
+                    "customerProduct": null,
+                    "customerType": null,
+                    "accountCategory": null,
+                    "accountType": null,
+                    "accountNumber": "6000030935",
+                    "phonenumber": "7304011560",
+                    "currency": "UGX",
+                    "timestamp": "2023-03-21T12:33:08.8139492+03:00"
+                    }
+  /api/v1/Payment/Notification:
+    post:
+      tags:
+        - Payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepositRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DepositRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/DepositRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                successdeposit:
+                  value: |-
+                    {
+                        "returnCode": "0",
+                        "returnMessage": "Transfer completed successfully Account Number: 6000034272, Amount: 4002  ",
+                        "banktransactionid": "34920619000100021767",
+                        "timestamp": "2023-03-01T11:00:44.9793544+03:00"
+                    }
+  /api/v1/getTransactionStatus:
+    get:
+      tags:
+        - Payment
+      responses:
+        '200':
+          description: Success
+  /api/v1/Test/TestConnection:
+    get:
+      tags:
+        - Test
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    DepositRequest:
+      type: object
+      properties:
+        channelID:
+          type: string
+          nullable: true
+        serviceID:
+          type: string
+          nullable: true
+        transactionID:
+          type: string
+          nullable: true
+        debitAccount:
+          type: string
+          nullable: true
+        creditAccount:
+          type: string
+          nullable: true
+        sourceOfFunds:
+          type: string
+          nullable: true
+        amount:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+        naration:
+          type: string
+          nullable: true
+        timestamp:
+          type: string
+          nullable: true
+        currency:
+          type: string
+          nullable: true
+        depositorName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ValidateRequest:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          nullable: true
+        transactionID:
+          type: string
+          nullable: true
+      additionalProperties: false

@@ -6,10 +6,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ug.co.absa.schoolfees</groupId>
-    <artifactId>school-pay-application</artifactId>
+    <artifactId>schoolpay</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>School Pay Application</name>
+    <name>schoolpay</name>
     <description>Description for SchoolPayApplication</description>
 
     <repositories>
