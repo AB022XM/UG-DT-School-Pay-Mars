@@ -100,7 +100,7 @@
   "devDependencies": {
     "@angular-builders/custom-webpack": "^13.1.0",
     "@angular-builders/jest": "^13.0.4",
-    "@angular-devkit/build-angular": "^14.2.11",
+    "@angular-devkit/build-angular": "^15.2.4",
     "@angular-eslint/eslint-plugin": "14.0.3",
     "@angular/cli": "14.2.1",
     "@angular/compiler-cli": "15.2.5",
