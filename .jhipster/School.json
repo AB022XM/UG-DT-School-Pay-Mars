@@ -1,0 +1,85 @@
+{
+  "applications": ["Schoolpay"],
+  "changelogDate": "20230330170319",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "school",
+  "fields": [
+    {
+      "fieldName": "recordUniqueIdentifier",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "schoolId",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "schoolCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "schoolPhoneNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "schoolAlternativePhoneNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "schoolemailAddess",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "schoolName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "freeField1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "isDeleted",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "School",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "school",
+      "relationshipName": "student",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceClass"
+}

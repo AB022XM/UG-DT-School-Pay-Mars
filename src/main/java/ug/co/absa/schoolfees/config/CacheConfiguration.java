@@ -48,6 +48,18 @@ public class CacheConfiguration {
             createCache(cm, ug.co.absa.schoolfees.domain.User.class.getName());
             createCache(cm, ug.co.absa.schoolfees.domain.Authority.class.getName());
             createCache(cm, ug.co.absa.schoolfees.domain.User.class.getName() + ".authorities");
+            createCache(cm, ug.co.absa.schoolfees.domain.Student.class.getName());
+            createCache(cm, ug.co.absa.schoolfees.domain.Student.class.getName() + ".payments");
+            createCache(cm, ug.co.absa.schoolfees.domain.StudentClass.class.getName());
+            createCache(cm, ug.co.absa.schoolfees.domain.StudentClass.class.getName() + ".associatedFees");
+            createCache(cm, ug.co.absa.schoolfees.domain.StudentClass.class.getName() + ".students");
+            createCache(cm, ug.co.absa.schoolfees.domain.ContactInfo.class.getName());
+            createCache(cm, ug.co.absa.schoolfees.domain.Address.class.getName());
+            createCache(cm, ug.co.absa.schoolfees.domain.School.class.getName());
+            createCache(cm, ug.co.absa.schoolfees.domain.School.class.getName() + ".students");
+            createCache(cm, ug.co.absa.schoolfees.domain.Payment.class.getName());
+            createCache(cm, ug.co.absa.schoolfees.domain.AssociatedFees.class.getName());
+            createCache(cm, ug.co.absa.schoolfees.domain.PaymentChannel.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

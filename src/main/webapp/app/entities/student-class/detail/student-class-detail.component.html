@@ -1,0 +1,88 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="studentClass">
+      <h2 data-cy="studentClassDetailsHeading"><span jhiTranslate="schoolpayApp.studentClass.detail.title">Student Class</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ studentClass.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.recordUniqueIdentifier">Record Unique Identifier</span></dt>
+        <dd>
+          <span>{{ studentClass.recordUniqueIdentifier }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.studentClassId">Student Class Id</span></dt>
+        <dd>
+          <span>{{ studentClass.studentClassId }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.studentClassCode">Student Class Code</span></dt>
+        <dd>
+          <span>{{ studentClass.studentClassCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.studentClassName">Student Class Name</span></dt>
+        <dd>
+          <span>{{ studentClass.studentClassName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.studentClassDescription">Student Class Description</span></dt>
+        <dd>
+          <span>{{ studentClass.studentClassDescription }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.status">Status</span></dt>
+        <dd>
+          <span>{{ studentClass.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.freeField1">Free Field 1</span></dt>
+        <dd>
+          <span>{{ studentClass.freeField1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.freeField2">Free Field 2</span></dt>
+        <dd>
+          <span>{{ studentClass.freeField2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.freeField3">Free Field 3</span></dt>
+        <dd>
+          <span>{{ studentClass.freeField3 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ studentClass.createdAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ studentClass.updatedAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.studentClass.isDeleted">Is Deleted</span></dt>
+        <dd>
+          <span>{{ studentClass.isDeleted | formatMediumDate }}</span>
+        </dd>
+      </dl>
+
+      <button (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton" type="submit">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button [routerLink]="['/student-class', studentClass.id, 'edit']" class="btn btn-primary" type="button">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

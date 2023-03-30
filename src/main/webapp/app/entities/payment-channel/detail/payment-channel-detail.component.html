@@ -1,0 +1,106 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="paymentChannel">
+      <h2 data-cy="paymentChannelDetailsHeading"><span jhiTranslate="schoolpayApp.paymentChannel.detail.title">Payment Channel</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ paymentChannel.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.paymentChannel.recordUniqueIdentifier">Record Unique Identifier</span></dt>
+        <dd>
+          <span>{{ paymentChannel.recordUniqueIdentifier }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.paymentChannel.channelId">Channel Id</span></dt>
+        <dd>
+          <span>{{ paymentChannel.channelId }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.paymentChannel.channelCode">Channel Code</span></dt>
+        <dd>
+          <span>{{ paymentChannel.channelCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.paymentChannel.channelName">Channel Name</span></dt>
+        <dd>
+          <span>{{ paymentChannel.channelName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.paymentChannel.status">Status</span></dt>
+        <dd>
+          <span>{{ paymentChannel.status }}</span>
+        </dd>
+        <dt>
+          <span
+            [ngbTooltip]="'schoolpayApp.paymentChannel.help.freeField1' | translate"
+            jhiTranslate="schoolpayApp.paymentChannel.freeField1"
+            >Free Field 1</span
+          >
+        </dt>
+        <dd>
+          <span>{{ paymentChannel.freeField1 }}</span>
+        </dd>
+        <dt>
+          <span
+            [ngbTooltip]="'schoolpayApp.paymentChannel.help.freeField2' | translate"
+            jhiTranslate="schoolpayApp.paymentChannel.freeField2"
+            >Free Field 2</span
+          >
+        </dt>
+        <dd>
+          <span>{{ paymentChannel.freeField2 }}</span>
+        </dd>
+        <dt>
+          <span
+            [ngbTooltip]="'schoolpayApp.paymentChannel.help.freeField3' | translate"
+            jhiTranslate="schoolpayApp.paymentChannel.freeField3"
+            >Free Field 3</span
+          >
+        </dt>
+        <dd>
+          <span>{{ paymentChannel.freeField3 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.paymentChannel.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ paymentChannel.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.paymentChannel.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ paymentChannel.updatedAt | formatMediumDate }}</span>
+        </dd>
+        <dt>
+          <span [ngbTooltip]="'schoolpayApp.paymentChannel.help.isDeleted' | translate" jhiTranslate="schoolpayApp.paymentChannel.isDeleted"
+            >Is Deleted</span
+          >
+        </dt>
+        <dd>
+          <span>{{ paymentChannel.isDeleted }}</span>
+        </dd>
+      </dl>
+
+      <button (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton" type="submit">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button [routerLink]="['/payment-channel', paymentChannel.id, 'edit']" class="btn btn-primary" type="button">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

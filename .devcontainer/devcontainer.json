@@ -1,7 +1,7 @@
-/*For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/java*/
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/java
 {
-  "name": "SchoolPayApplication",
+  "name": "Schoolpay",
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
@@ -21,7 +21,7 @@ https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/java
     "java.home": "/docker-java-home"
   },
 
-  /*Add the IDs of extensions you want installed when the container is created.*/
+  // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
     "angular.ng-template",
     "christian-kohler.npm-intellisense",
@@ -34,7 +34,7 @@ https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/java
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [4200, 3001, 9000, 8091],
+  "forwardPorts": [4200, 3001, 9000, 9001],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   // "postCreateCommand": "java -version",

@@ -1,0 +1,264 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form (ngSubmit)="save()" [formGroup]="editForm" name="editForm" novalidate role="form">
+      <h2
+        data-cy="PaymentChannelCreateUpdateHeading"
+        id="jhi-payment-channel-heading"
+        jhiTranslate="schoolpayApp.paymentChannel.home.createOrEditLabel"
+      >
+        Create or edit a Payment Channel
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div *ngIf="editForm.controls.id.value !== null" class="row mb-3">
+          <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+          <input [readonly]="true" class="form-control" data-cy="id" formControlName="id" id="field_id" name="id" type="number" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_recordUniqueIdentifier" jhiTranslate="schoolpayApp.paymentChannel.recordUniqueIdentifier"
+            >Record Unique Identifier</label
+          >
+          <input
+            class="form-control"
+            data-cy="recordUniqueIdentifier"
+            formControlName="recordUniqueIdentifier"
+            id="field_recordUniqueIdentifier"
+            name="recordUniqueIdentifier"
+            type="text"
+          />
+          <div
+            *ngIf="
+              editForm.get('recordUniqueIdentifier')!.invalid &&
+              (editForm.get('recordUniqueIdentifier')!.dirty || editForm.get('recordUniqueIdentifier')!.touched)
+            "
+          >
+            <small
+              *ngIf="editForm.get('recordUniqueIdentifier')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_channelId" jhiTranslate="schoolpayApp.paymentChannel.channelId">Channel Id</label>
+          <input class="form-control" data-cy="channelId" formControlName="channelId" id="field_channelId" name="channelId" type="number" />
+          <div *ngIf="editForm.get('channelId')!.invalid && (editForm.get('channelId')!.dirty || editForm.get('channelId')!.touched)">
+            <small
+              *ngIf="editForm.get('channelId')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              [hidden]="!editForm.get('channelId')?.errors?.number"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_channelCode" jhiTranslate="schoolpayApp.paymentChannel.channelCode">Channel Code</label>
+          <input
+            class="form-control"
+            data-cy="channelCode"
+            formControlName="channelCode"
+            id="field_channelCode"
+            name="channelCode"
+            type="number"
+          />
+          <div *ngIf="editForm.get('channelCode')!.invalid && (editForm.get('channelCode')!.dirty || editForm.get('channelCode')!.touched)">
+            <small
+              *ngIf="editForm.get('channelCode')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              [hidden]="!editForm.get('channelCode')?.errors?.number"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_channelName" jhiTranslate="schoolpayApp.paymentChannel.channelName">Channel Name</label>
+          <input
+            class="form-control"
+            data-cy="channelName"
+            formControlName="channelName"
+            id="field_channelName"
+            name="channelName"
+            type="number"
+          />
+          <div *ngIf="editForm.get('channelName')!.invalid && (editForm.get('channelName')!.dirty || editForm.get('channelName')!.touched)">
+            <small
+              *ngIf="editForm.get('channelName')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              [hidden]="!editForm.get('channelName')?.errors?.number"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="schoolpayApp.paymentChannel.status">Status</label>
+          <input class="form-check" data-cy="status" formControlName="status" id="field_status" name="status" type="checkbox" />
+          <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
+            <small *ngIf="editForm.get('status')?.errors?.required" class="form-text text-danger" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label
+            [ngbTooltip]="'schoolpayApp.paymentChannel.help.freeField1' | translate"
+            class="form-label"
+            for="field_freeField1"
+            jhiTranslate="schoolpayApp.paymentChannel.freeField1"
+            >Free Field 1</label
+          >
+          <input
+            class="form-control"
+            data-cy="freeField1"
+            formControlName="freeField1"
+            id="field_freeField1"
+            name="freeField1"
+            type="text"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label
+            [ngbTooltip]="'schoolpayApp.paymentChannel.help.freeField2' | translate"
+            class="form-label"
+            for="field_freeField2"
+            jhiTranslate="schoolpayApp.paymentChannel.freeField2"
+            >Free Field 2</label
+          >
+          <input
+            class="form-control"
+            data-cy="freeField2"
+            formControlName="freeField2"
+            id="field_freeField2"
+            name="freeField2"
+            type="text"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label
+            [ngbTooltip]="'schoolpayApp.paymentChannel.help.freeField3' | translate"
+            class="form-label"
+            for="field_freeField3"
+            jhiTranslate="schoolpayApp.paymentChannel.freeField3"
+            >Free Field 3</label
+          >
+          <input
+            class="form-control"
+            data-cy="freeField3"
+            formControlName="freeField3"
+            id="field_freeField3"
+            name="freeField3"
+            type="text"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="schoolpayApp.paymentChannel.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              class="form-control"
+              data-cy="createdAt"
+              formControlName="createdAt"
+              id="field_createdAt"
+              name="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+              type="datetime-local"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_updatedAt" jhiTranslate="schoolpayApp.paymentChannel.updatedAt">Updated At</label>
+          <div class="input-group">
+            <input
+              #updatedAtDp="ngbDatepicker"
+              class="form-control"
+              data-cy="updatedAt"
+              formControlName="updatedAt"
+              id="field_updatedAt"
+              name="updatedAt"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="updatedAtDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label
+            [ngbTooltip]="'schoolpayApp.paymentChannel.help.isDeleted' | translate"
+            class="form-label"
+            for="field_isDeleted"
+            jhiTranslate="schoolpayApp.paymentChannel.isDeleted"
+            >Is Deleted</label
+          >
+          <input class="form-check" data-cy="isDeleted" formControlName="isDeleted" id="field_isDeleted" name="isDeleted" type="checkbox" />
+        </div>
+      </div>
+
+      <div>
+        <button (click)="previousState()" class="btn btn-secondary" data-cy="entityCreateCancelButton" id="cancel-save" type="button">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+          data-cy="entityCreateSaveButton"
+          id="save-entity"
+          type="submit"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

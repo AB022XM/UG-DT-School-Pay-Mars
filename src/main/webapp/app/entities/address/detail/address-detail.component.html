@@ -1,0 +1,72 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="address">
+      <h2 data-cy="addressDetailsHeading"><span jhiTranslate="schoolpayApp.address.detail.title">Address</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ address.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.address.recordUniqueIdentifier">Record Unique Identifier</span></dt>
+        <dd>
+          <span>{{ address.recordUniqueIdentifier }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.address.addressId">Address Id</span></dt>
+        <dd>
+          <span>{{ address.addressId }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.address.addresssName">Addresss Name</span></dt>
+        <dd>
+          <span>{{ address.addresssName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.address.addressDescription">Address Description</span></dt>
+        <dd>
+          <span>{{ address.addressDescription }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.address.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ address.createdAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.address.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ address.updatedAt | formatMediumDate }}</span>
+        </dd>
+        <dt>
+          <span [ngbTooltip]="'schoolpayApp.address.help.isDeleted' | translate" jhiTranslate="schoolpayApp.address.isDeleted"
+            >Is Deleted</span
+          >
+        </dt>
+        <dd>
+          <span>{{ address.isDeleted | formatMediumDate }}</span>
+        </dd>
+      </dl>
+
+      <button (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton" type="submit">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button [routerLink]="['/address', address.id, 'edit']" class="btn btn-primary" type="button">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

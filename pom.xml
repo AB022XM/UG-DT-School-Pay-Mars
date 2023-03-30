@@ -9,8 +9,8 @@
     <artifactId>schoolpay</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>schoolpay</name>
-    <description>Description for SchoolPayApplication</description>
+    <name>Schoolpay</name>
+    <description>Description for Schoolpay</description>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
@@ -34,7 +34,7 @@
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <start-class>ug.co.absa.schoolfees.SchoolPayApplicationApp</start-class>
+        <start-class>ug.co.absa.schoolfees.SchoolpayApp</start-class>
         <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx1G</argLine>
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
         <run.addResources>false</run.addResources>
@@ -61,6 +61,7 @@
         <archunit-junit5.version>0.22.0</archunit-junit5.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
         <jackson-databind-nullable.version>0.2.3</jackson-databind-nullable.version>
+        <caffeine.version>3.1.1</caffeine.version>
         <!-- Plugin versions -->
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
         <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
@@ -166,6 +167,11 @@
             <artifactId>hibernate-jcache</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <scope>provided</scope>
@@ -227,10 +233,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
@@ -274,19 +276,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
+        <!-- Spring Security OAuth 2.0 -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
         <!-- Spring Cloud -->
         <dependency>
@@ -652,7 +649,7 @@
                             </platforms>
                         </from>
                         <to>
-                            <image>schoolpayapplication:latest</image>
+                            <image>schoolpay:latest</image>
                         </to>
                         <container>
                             <entrypoint>
@@ -661,7 +658,7 @@
                                 <arg>/entrypoint.sh</arg>
                             </entrypoint>
                             <ports>
-                                <port>8091</port>
+                                <port>9001</port>
                             </ports>
                             <environment>
                                 <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
@@ -821,7 +818,7 @@
                                 <skipValidateSpec>false</skipValidateSpec>
                                 <configOptions>
                                     <delegatePattern>true</delegatePattern>
-                                    <title>school-pay-application</title>
+                                    <title>schoolpay</title>
                                 </configOptions>
                             </configuration>
                         </execution>
@@ -1070,14 +1067,15 @@
                                 <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                                 <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                                 <driver>com.mysql.cj.jdbc.Driver</driver>
-                                <url>jdbc:mysql://localhost:3306/SchoolPayApplication</url>
-                                <defaultSchemaName>SchoolPayApplication</defaultSchemaName>
+                                <url>jdbc:mysql://localhost:3306/Schoolpay</url>
+                                <defaultSchemaName>Schoolpay</defaultSchemaName>
                                 <username>root</username>
                                 <password></password>
                                 <referenceUrl>hibernate:spring:ug.co.absa.schoolfees.domain?dialect=org.hibernate.dialect.MySQL8Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                                 <verbose>true</verbose>
                                 <logging>debug</logging>
                                 <contexts>!test</contexts>
+                                <diffExcludeObjects>oauth_access_token, oauth_approvals, oauth_client_details, oauth_client_token, oauth_code, oauth_refresh_token</diffExcludeObjects>
                             </configuration>
                             <dependencies>
                                 <dependency>
@@ -1165,14 +1163,15 @@
                                 <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                                 <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                                 <driver>com.mysql.cj.jdbc.Driver</driver>
-                                <url>jdbc:mysql://localhost:3306/SchoolPayApplication</url>
-                                <defaultSchemaName>SchoolPayApplication</defaultSchemaName>
+                                <url>jdbc:mysql://localhost:3306/Schoolpay</url>
+                                <defaultSchemaName>Schoolpay</defaultSchemaName>
                                 <username>root</username>
                                 <password></password>
                                 <referenceUrl>hibernate:spring:ug.co.absa.schoolfees.domain?dialect=org.hibernate.dialect.MySQL8Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                                 <verbose>true</verbose>
                                 <logging>debug</logging>
                                 <contexts>!test</contexts>
+                                <diffExcludeObjects>oauth_access_token, oauth_approvals, oauth_client_details, oauth_client_token, oauth_code, oauth_refresh_token</diffExcludeObjects>
                             </configuration>
                             <dependencies>
                                 <dependency>
@@ -1386,6 +1385,31 @@
                                     </pluginExecutions>
                                 </lifecycleMappingMetadata>
                             </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+        <profile>
+            <id>e2e</id>
+            <properties>
+                <profile.e2e>,e2e</profile.e2e>
+            </properties>
+            <build>
+                <finalName>e2e</finalName>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>repackage</id>
+                                    <goals>
+                                        <goal>repackage</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
                         </plugin>
                     </plugins>
                 </pluginManagement>

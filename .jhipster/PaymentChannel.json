@@ -1,0 +1,70 @@
+{
+  "applications": ["Schoolpay"],
+  "changelogDate": "20230330170322",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "payment_channel",
+  "fields": [
+    {
+      "fieldName": "recordUniqueIdentifier",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "channelId",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "channelCode",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "channelName",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "freeField1",
+      "fieldType": "String",
+      "javadoc": "This is an additional field\\ncreated in case there is need to\\nadd a field without the need to alter database configs"
+    },
+    {
+      "fieldName": "freeField2",
+      "fieldType": "String",
+      "javadoc": "This is an additional field\\ncreated in case there is need to\\nadd a field without the need to alter database configs"
+    },
+    {
+      "fieldName": "freeField3",
+      "fieldType": "String",
+      "javadoc": "This is an additional field\\ncreated in case there is need to\\nadd a field without the need to alter database configs"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "isDeleted",
+      "fieldType": "Boolean",
+      "javadoc": "this is used to identify whether the\\nrecord has been deleted or not (Y-deleted, N-Not deleted)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PaymentChannel",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": false,
+  "service": "serviceClass"
+}

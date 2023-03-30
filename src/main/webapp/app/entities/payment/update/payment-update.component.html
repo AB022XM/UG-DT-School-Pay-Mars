@@ -1,0 +1,651 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form (ngSubmit)="save()" [formGroup]="editForm" name="editForm" novalidate role="form">
+      <h2 data-cy="PaymentCreateUpdateHeading" id="jhi-payment-heading" jhiTranslate="schoolpayApp.payment.home.createOrEditLabel">
+        Create or edit a Payment
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div *ngIf="editForm.controls.id.value !== null" class="row mb-3">
+          <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+          <input [readonly]="true" class="form-control" data-cy="id" formControlName="id" id="field_id" name="id" type="number" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_recordUniqueIdentifier" jhiTranslate="schoolpayApp.payment.recordUniqueIdentifier"
+            >Record Unique Identifier</label
+          >
+          <input
+            class="form-control"
+            data-cy="recordUniqueIdentifier"
+            formControlName="recordUniqueIdentifier"
+            id="field_recordUniqueIdentifier"
+            name="recordUniqueIdentifier"
+            type="text"
+          />
+          <div
+            *ngIf="
+              editForm.get('recordUniqueIdentifier')!.invalid &&
+              (editForm.get('recordUniqueIdentifier')!.dirty || editForm.get('recordUniqueIdentifier')!.touched)
+            "
+          >
+            <small
+              *ngIf="editForm.get('recordUniqueIdentifier')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_returnCode" jhiTranslate="schoolpayApp.payment.returnCode">Return Code</label>
+          <input
+            class="form-control"
+            data-cy="returnCode"
+            formControlName="returnCode"
+            id="field_returnCode"
+            name="returnCode"
+            type="text"
+          />
+          <div *ngIf="editForm.get('returnCode')!.invalid && (editForm.get('returnCode')!.dirty || editForm.get('returnCode')!.touched)">
+            <small
+              *ngIf="editForm.get('returnCode')?.errors?.maxlength"
+              [translateValues]="{ max: 3 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 3 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_returnMessage" jhiTranslate="schoolpayApp.payment.returnMessage">Return Message</label>
+          <input
+            class="form-control"
+            data-cy="returnMessage"
+            formControlName="returnMessage"
+            id="field_returnMessage"
+            name="returnMessage"
+            type="text"
+          />
+          <div
+            *ngIf="
+              editForm.get('returnMessage')!.invalid && (editForm.get('returnMessage')!.dirty || editForm.get('returnMessage')!.touched)
+            "
+          >
+            <small
+              *ngIf="editForm.get('returnMessage')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              *ngIf="editForm.get('returnMessage')?.errors?.maxlength"
+              [translateValues]="{ max: 50 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_processTimestamp" jhiTranslate="schoolpayApp.payment.processTimestamp"
+            >Process Timestamp</label
+          >
+          <div class="input-group">
+            <input
+              #processTimestampDp="ngbDatepicker"
+              class="form-control"
+              data-cy="processTimestamp"
+              formControlName="processTimestamp"
+              id="field_processTimestamp"
+              name="processTimestamp"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="processTimestampDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_feeAmount" jhiTranslate="schoolpayApp.payment.feeAmount">Fee Amount</label>
+          <input class="form-control" data-cy="feeAmount" formControlName="feeAmount" id="field_feeAmount" name="feeAmount" type="number" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_feeDescription" jhiTranslate="schoolpayApp.payment.feeDescription">Fee Description</label>
+          <input
+            class="form-control"
+            data-cy="feeDescription"
+            formControlName="feeDescription"
+            id="field_feeDescription"
+            name="feeDescription"
+            type="text"
+          />
+          <div
+            *ngIf="
+              editForm.get('feeDescription')!.invalid && (editForm.get('feeDescription')!.dirty || editForm.get('feeDescription')!.touched)
+            "
+          >
+            <small
+              *ngIf="editForm.get('feeDescription')?.errors?.minlength"
+              [translateValues]="{ min: 3 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.minlength"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              *ngIf="editForm.get('feeDescription')?.errors?.maxlength"
+              [translateValues]="{ max: 200 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 200 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_feeDueFromDate" jhiTranslate="schoolpayApp.payment.feeDueFromDate">Fee Due From Date</label>
+          <div class="input-group">
+            <input
+              #feeDueFromDateDp="ngbDatepicker"
+              class="form-control"
+              data-cy="feeDueFromDate"
+              formControlName="feeDueFromDate"
+              id="field_feeDueFromDate"
+              name="feeDueFromDate"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="feeDueFromDateDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_feeDueToDate" jhiTranslate="schoolpayApp.payment.feeDueToDate">Fee Due To Date</label>
+          <div class="input-group">
+            <input
+              #feeDueToDateDp="ngbDatepicker"
+              class="form-control"
+              data-cy="feeDueToDate"
+              formControlName="feeDueToDate"
+              id="field_feeDueToDate"
+              name="feeDueToDate"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="feeDueToDateDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_feeId" jhiTranslate="schoolpayApp.payment.feeId">Fee Id</label>
+          <input class="form-control" data-cy="feeId" formControlName="feeId" id="field_feeId" name="feeId" type="text" />
+          <div *ngIf="editForm.get('feeId')!.invalid && (editForm.get('feeId')!.dirty || editForm.get('feeId')!.touched)">
+            <small *ngIf="editForm.get('feeId')?.errors?.required" class="form-text text-danger" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              *ngIf="editForm.get('feeId')?.errors?.minlength"
+              [translateValues]="{ min: 1 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.minlength"
+            >
+              This field is required to be at least 1 characters.
+            </small>
+            <small
+              *ngIf="editForm.get('feeId')?.errors?.maxlength"
+              [translateValues]="{ max: 50 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_dateOfBirth" jhiTranslate="schoolpayApp.payment.dateOfBirth">Date Of Birth</label>
+          <div class="input-group">
+            <input
+              #dateOfBirthDp="ngbDatepicker"
+              class="form-control"
+              data-cy="dateOfBirth"
+              formControlName="dateOfBirth"
+              id="field_dateOfBirth"
+              name="dateOfBirth"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="dateOfBirthDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_firstName" jhiTranslate="schoolpayApp.payment.firstName">First Name</label>
+          <input class="form-control" data-cy="firstName" formControlName="firstName" id="field_firstName" name="firstName" type="text" />
+          <div *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
+            <small
+              *ngIf="editForm.get('firstName')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              *ngIf="editForm.get('firstName')?.errors?.minlength"
+              [translateValues]="{ min: 3 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.minlength"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              *ngIf="editForm.get('firstName')?.errors?.maxlength"
+              [translateValues]="{ max: 50 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_lastName" jhiTranslate="schoolpayApp.payment.lastName">Last Name</label>
+          <input class="form-control" data-cy="lastName" formControlName="lastName" id="field_lastName" name="lastName" type="text" />
+          <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
+            <small
+              *ngIf="editForm.get('lastName')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              *ngIf="editForm.get('lastName')?.errors?.minlength"
+              [translateValues]="{ min: 3 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.minlength"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              *ngIf="editForm.get('lastName')?.errors?.maxlength"
+              [translateValues]="{ max: 50 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_middleName" jhiTranslate="schoolpayApp.payment.middleName">Middle Name</label>
+          <input
+            class="form-control"
+            data-cy="middleName"
+            formControlName="middleName"
+            id="field_middleName"
+            name="middleName"
+            type="text"
+          />
+          <div *ngIf="editForm.get('middleName')!.invalid && (editForm.get('middleName')!.dirty || editForm.get('middleName')!.touched)">
+            <small
+              *ngIf="editForm.get('middleName')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              *ngIf="editForm.get('middleName')?.errors?.minlength"
+              [translateValues]="{ min: 3 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.minlength"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              *ngIf="editForm.get('middleName')?.errors?.maxlength"
+              [translateValues]="{ max: 50 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_outstandingAmount" jhiTranslate="schoolpayApp.payment.outstandingAmount"
+            >Outstanding Amount</label
+          >
+          <input
+            class="form-control"
+            data-cy="outstandingAmount"
+            formControlName="outstandingAmount"
+            id="field_outstandingAmount"
+            name="outstandingAmount"
+            type="number"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_paymentCode" jhiTranslate="schoolpayApp.payment.paymentCode">Payment Code</label>
+          <input
+            class="form-control"
+            data-cy="paymentCode"
+            formControlName="paymentCode"
+            id="field_paymentCode"
+            name="paymentCode"
+            type="text"
+          />
+          <div *ngIf="editForm.get('paymentCode')!.invalid && (editForm.get('paymentCode')!.dirty || editForm.get('paymentCode')!.touched)">
+            <small
+              *ngIf="editForm.get('paymentCode')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              *ngIf="editForm.get('paymentCode')?.errors?.minlength"
+              [translateValues]="{ min: 3 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.minlength"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              *ngIf="editForm.get('paymentCode')?.errors?.maxlength"
+              [translateValues]="{ max: 50 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_schoolCode" jhiTranslate="schoolpayApp.payment.schoolCode">School Code</label>
+          <input
+            class="form-control"
+            data-cy="schoolCode"
+            formControlName="schoolCode"
+            id="field_schoolCode"
+            name="schoolCode"
+            type="text"
+          />
+          <div *ngIf="editForm.get('schoolCode')!.invalid && (editForm.get('schoolCode')!.dirty || editForm.get('schoolCode')!.touched)">
+            <small
+              *ngIf="editForm.get('schoolCode')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              *ngIf="editForm.get('schoolCode')?.errors?.minlength"
+              [translateValues]="{ min: 3 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.minlength"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              *ngIf="editForm.get('schoolCode')?.errors?.maxlength"
+              [translateValues]="{ max: 50 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_schoolName" jhiTranslate="schoolpayApp.payment.schoolName">School Name</label>
+          <input
+            class="form-control"
+            data-cy="schoolName"
+            formControlName="schoolName"
+            id="field_schoolName"
+            name="schoolName"
+            type="text"
+          />
+          <div *ngIf="editForm.get('schoolName')!.invalid && (editForm.get('schoolName')!.dirty || editForm.get('schoolName')!.touched)">
+            <small
+              *ngIf="editForm.get('schoolName')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              *ngIf="editForm.get('schoolName')?.errors?.minlength"
+              [translateValues]="{ min: 3 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.minlength"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              *ngIf="editForm.get('schoolName')?.errors?.maxlength"
+              [translateValues]="{ max: 200 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 200 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_studentClass" jhiTranslate="schoolpayApp.payment.studentClass">Student Class</label>
+          <input
+            class="form-control"
+            data-cy="studentClass"
+            formControlName="studentClass"
+            id="field_studentClass"
+            name="studentClass"
+            type="text"
+          />
+          <div
+            *ngIf="editForm.get('studentClass')!.invalid && (editForm.get('studentClass')!.dirty || editForm.get('studentClass')!.touched)"
+          >
+            <small
+              *ngIf="editForm.get('studentClass')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              *ngIf="editForm.get('studentClass')?.errors?.minlength"
+              [translateValues]="{ min: 3 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.minlength"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              *ngIf="editForm.get('studentClass')?.errors?.maxlength"
+              [translateValues]="{ max: 50 }"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.maxlength"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_paymentChannel" jhiTranslate="schoolpayApp.payment.paymentChannel">Payment Channel</label>
+          <select
+            class="form-control"
+            data-cy="paymentChannel"
+            formControlName="paymentChannel"
+            id="field_paymentChannel"
+            name="paymentChannel"
+          >
+            <option [ngValue]="null">{{ 'schoolpayApp.PaymentChannel.null' | translate }}</option>
+            <option *ngFor="let paymentChannel of paymentChannelValues" [value]="paymentChannel">
+              {{ 'schoolpayApp.PaymentChannel.' + paymentChannel | translate }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              editForm.get('paymentChannel')!.invalid && (editForm.get('paymentChannel')!.dirty || editForm.get('paymentChannel')!.touched)
+            "
+          >
+            <small
+              *ngIf="editForm.get('paymentChannel')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_freeField1" jhiTranslate="schoolpayApp.payment.freeField1">Free Field 1</label>
+          <input
+            class="form-control"
+            data-cy="freeField1"
+            formControlName="freeField1"
+            id="field_freeField1"
+            name="freeField1"
+            type="text"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_freeField2" jhiTranslate="schoolpayApp.payment.freeField2">Free Field 2</label>
+          <input
+            class="form-control"
+            data-cy="freeField2"
+            formControlName="freeField2"
+            id="field_freeField2"
+            name="freeField2"
+            type="text"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_freeField3" jhiTranslate="schoolpayApp.payment.freeField3">Free Field 3</label>
+          <input
+            class="form-control"
+            data-cy="freeField3"
+            formControlName="freeField3"
+            id="field_freeField3"
+            name="freeField3"
+            type="text"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="schoolpayApp.payment.createdAt">Created At</label>
+          <div class="input-group">
+            <input
+              #createdAtDp="ngbDatepicker"
+              class="form-control"
+              data-cy="createdAt"
+              formControlName="createdAt"
+              id="field_createdAt"
+              name="createdAt"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="createdAtDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_updatedAt" jhiTranslate="schoolpayApp.payment.updatedAt">Updated At</label>
+          <div class="input-group">
+            <input
+              #updatedAtDp="ngbDatepicker"
+              class="form-control"
+              data-cy="updatedAt"
+              formControlName="updatedAt"
+              id="field_updatedAt"
+              name="updatedAt"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="updatedAtDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_student" jhiTranslate="schoolpayApp.payment.student">Student</label>
+          <select
+            [compareWith]="compareStudent"
+            class="form-control"
+            data-cy="student"
+            formControlName="student"
+            id="field_student"
+            name="student"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let studentOption of studentsSharedCollection" [ngValue]="studentOption">{{ studentOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button (click)="previousState()" class="btn btn-secondary" data-cy="entityCreateCancelButton" id="cancel-save" type="button">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+          data-cy="entityCreateSaveButton"
+          id="save-entity"
+          type="submit"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

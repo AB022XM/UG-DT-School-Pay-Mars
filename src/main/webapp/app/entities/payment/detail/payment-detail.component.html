@@ -1,0 +1,142 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="payment">
+      <h2 data-cy="paymentDetailsHeading"><span jhiTranslate="schoolpayApp.payment.detail.title">Payment</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ payment.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.recordUniqueIdentifier">Record Unique Identifier</span></dt>
+        <dd>
+          <span>{{ payment.recordUniqueIdentifier }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.returnCode">Return Code</span></dt>
+        <dd>
+          <span>{{ payment.returnCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.returnMessage">Return Message</span></dt>
+        <dd>
+          <span>{{ payment.returnMessage }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.processTimestamp">Process Timestamp</span></dt>
+        <dd>
+          <span>{{ payment.processTimestamp | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.feeAmount">Fee Amount</span></dt>
+        <dd>
+          <span>{{ payment.feeAmount }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.feeDescription">Fee Description</span></dt>
+        <dd>
+          <span>{{ payment.feeDescription }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.feeDueFromDate">Fee Due From Date</span></dt>
+        <dd>
+          <span>{{ payment.feeDueFromDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.feeDueToDate">Fee Due To Date</span></dt>
+        <dd>
+          <span>{{ payment.feeDueToDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.feeId">Fee Id</span></dt>
+        <dd>
+          <span>{{ payment.feeId }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.dateOfBirth">Date Of Birth</span></dt>
+        <dd>
+          <span>{{ payment.dateOfBirth | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ payment.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ payment.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.middleName">Middle Name</span></dt>
+        <dd>
+          <span>{{ payment.middleName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.outstandingAmount">Outstanding Amount</span></dt>
+        <dd>
+          <span>{{ payment.outstandingAmount }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.paymentCode">Payment Code</span></dt>
+        <dd>
+          <span>{{ payment.paymentCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.schoolCode">School Code</span></dt>
+        <dd>
+          <span>{{ payment.schoolCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.schoolName">School Name</span></dt>
+        <dd>
+          <span>{{ payment.schoolName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.studentClass">Student Class</span></dt>
+        <dd>
+          <span>{{ payment.studentClass }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.paymentChannel">Payment Channel</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'schoolpayApp.PaymentChannel.' + payment.paymentChannel }}">{{ payment.paymentChannel }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.freeField1">Free Field 1</span></dt>
+        <dd>
+          <span>{{ payment.freeField1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.freeField2">Free Field 2</span></dt>
+        <dd>
+          <span>{{ payment.freeField2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.freeField3">Free Field 3</span></dt>
+        <dd>
+          <span>{{ payment.freeField3 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ payment.createdAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ payment.updatedAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.payment.student">Student</span></dt>
+        <dd>
+          <div *ngIf="payment.student">
+            <a [routerLink]="['/student', payment.student.id, 'view']">{{ payment.student.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton" type="submit">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button [routerLink]="['/payment', payment.id, 'edit']" class="btn btn-primary" type="button">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+{
+  "applications": ["Schoolpay"],
+  "changelogDate": "20230330170320",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "payment",
+  "fields": [
+    {
+      "fieldName": "recordUniqueIdentifier",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "returnCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "3"
+    },
+    {
+      "fieldName": "returnMessage",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "processTimestamp",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "feeAmount",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "feeDescription",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "200",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "feeDueFromDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "feeDueToDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "feeId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "dateOfBirth",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "firstName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "middleName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "outstandingAmount",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "paymentCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "schoolCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "schoolName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "200",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "studentClass",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "paymentChannel",
+      "fieldType": "PaymentChannel",
+      "fieldTypeJavadoc": "This enum shows all available payment channels\\n@author Banada Ismael ABSA DT team",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "OVERTHECOUNTER (COUNTER),ABSAINTERNETBANKING (INTERNETBANKING),POINTOFSALE (POS),MOBILEAPP (APP),CHATBOT (ABBY),USSD (USSD)"
+    },
+    {
+      "fieldName": "freeField1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Payment",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "payment",
+      "relationshipName": "student",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceClass"
+}

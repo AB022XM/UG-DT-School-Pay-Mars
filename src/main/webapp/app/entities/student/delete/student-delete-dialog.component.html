@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<form (ngSubmit)="confirmDelete(student.id!)" *ngIf="student" name="deleteForm">
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="studentDeleteDialogHeading" jhiTranslate="entity.delete.title">Confirm delete operation</h4>
+
+    <button (click)="cancel()" aria-hidden="true" class="btn-close" data-dismiss="modal" type="button">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <p [translateValues]="{ id: student.id }" id="jhi-delete-student-heading" jhiTranslate="schoolpayApp.student.delete.question">
+      Are you sure you want to delete Student {{ student.id }}?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="cancel()" class="btn btn-secondary" data-dismiss="modal" type="button">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+
+    <button class="btn btn-danger" data-cy="entityConfirmDeleteButton" id="jhi-confirm-delete-student" type="submit">
+      <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,120 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="student">
+      <h2 data-cy="studentDetailsHeading"><span jhiTranslate="schoolpayApp.student.detail.title">Student</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ student.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.recordUniqueIdentifier">Record Unique Identifier</span></dt>
+        <dd>
+          <span>{{ student.recordUniqueIdentifier }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.studentId">Student Id</span></dt>
+        <dd>
+          <span>{{ student.studentId }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ student.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.middleName">Middle Name</span></dt>
+        <dd>
+          <span>{{ student.middleName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ student.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.paymentCode">Payment Code</span></dt>
+        <dd>
+          <span>{{ student.paymentCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.dateOfBirth">Date Of Birth</span></dt>
+        <dd>
+          <span>{{ student.dateOfBirth | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.outStandingAmount">Out Standing Amount</span></dt>
+        <dd>
+          <span>{{ student.outStandingAmount }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.status">Status</span></dt>
+        <dd>
+          <span>{{ student.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.studentContact">Student Contact</span></dt>
+        <dd>
+          <span>{{ student.studentContact }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.studentAddress">Student Address</span></dt>
+        <dd>
+          <span>{{ student.studentAddress }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.freeField1">Free Field 1</span></dt>
+        <dd>
+          <span>{{ student.freeField1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.freeField2">Free Field 2</span></dt>
+        <dd>
+          <span>{{ student.freeField2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.freeField3">Free Field 3</span></dt>
+        <dd>
+          <span>{{ student.freeField3 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ student.createdAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ student.updatedAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.isDeleted">Is Deleted</span></dt>
+        <dd>
+          <span>{{ student.isDeleted | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.studentClass">Student Class</span></dt>
+        <dd>
+          <div *ngIf="student.studentClass">
+            <a [routerLink]="['/student-class', student.studentClass.id, 'view']">{{ student.studentClass.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.student.school">School</span></dt>
+        <dd>
+          <div *ngIf="student.school">
+            <a [routerLink]="['/school', student.school.id, 'view']">{{ student.school.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton" type="submit">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button [routerLink]="['/student', student.id, 'edit']" class="btn btn-primary" type="button">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

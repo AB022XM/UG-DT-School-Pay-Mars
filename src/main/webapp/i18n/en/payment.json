@@ -1,0 +1,48 @@
+{
+  "schoolpayApp": {
+    "payment": {
+      "home": {
+        "title": "Payments",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Payment",
+        "createOrEditLabel": "Create or edit a Payment",
+        "notFound": "No Payments found"
+      },
+      "created": "A new Payment is created with identifier {{ param }}",
+      "updated": "A Payment is updated with identifier {{ param }}",
+      "deleted": "A Payment is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Payment {{ id }}?"
+      },
+      "detail": {
+        "title": "Payment"
+      },
+      "id": "ID",
+      "recordUniqueIdentifier": "Record Unique Identifier",
+      "returnCode": "Return Code",
+      "returnMessage": "Return Message",
+      "processTimestamp": "Process Timestamp",
+      "feeAmount": "Fee Amount",
+      "feeDescription": "Fee Description",
+      "feeDueFromDate": "Fee Due From Date",
+      "feeDueToDate": "Fee Due To Date",
+      "feeId": "Fee Id",
+      "dateOfBirth": "Date Of Birth",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "middleName": "Middle Name",
+      "outstandingAmount": "Outstanding Amount",
+      "paymentCode": "Payment Code",
+      "schoolCode": "School Code",
+      "schoolName": "School Name",
+      "studentClass": "Student Class",
+      "paymentChannel": "Payment Channel",
+      "freeField1": "Free Field 1",
+      "freeField2": "Free Field 2",
+      "freeField3": "Free Field 3",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "student": "Student"
+    }
+  }
+}

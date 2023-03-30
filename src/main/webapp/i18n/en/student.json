@@ -1,0 +1,43 @@
+{
+  "schoolpayApp": {
+    "student": {
+      "home": {
+        "title": "Students",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Student",
+        "createOrEditLabel": "Create or edit a Student",
+        "notFound": "No Students found"
+      },
+      "created": "A new Student is created with identifier {{ param }}",
+      "updated": "A Student is updated with identifier {{ param }}",
+      "deleted": "A Student is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Student {{ id }}?"
+      },
+      "detail": {
+        "title": "Student"
+      },
+      "id": "ID",
+      "recordUniqueIdentifier": "Record Unique Identifier",
+      "studentId": "Student Id",
+      "firstName": "First Name",
+      "middleName": "Middle Name",
+      "lastName": "Last Name",
+      "paymentCode": "Payment Code",
+      "dateOfBirth": "Date Of Birth",
+      "outStandingAmount": "Out Standing Amount",
+      "status": "Status",
+      "studentContact": "Student Contact",
+      "studentAddress": "Student Address",
+      "freeField1": "Free Field 1",
+      "freeField2": "Free Field 2",
+      "freeField3": "Free Field 3",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "isDeleted": "Is Deleted",
+      "payment": "Payment",
+      "studentClass": "Student Class",
+      "school": "School"
+    }
+  }
+}

@@ -1,0 +1,142 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div>
+  <h2 data-cy="AddressHeading" id="page-heading">
+    <span jhiTranslate="schoolpayApp.address.home.title">Addresses</span>
+
+    <div class="d-flex justify-content-end">
+      <button (click)="load()" [disabled]="isLoading" class="btn btn-info me-2">
+        <fa-icon [spin]="isLoading" icon="sync"></fa-icon>
+        <span jhiTranslate="schoolpayApp.address.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        [routerLink]="['/address/new']"
+        class="btn btn-primary jh-create-entity create-address"
+        data-cy="entityCreateButton"
+        id="jh-create-entity"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="schoolpayApp.address.home.createLabel"> Create a new Address </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div *ngIf="addresses?.length === 0" class="alert alert-warning" id="no-result">
+    <span jhiTranslate="schoolpayApp.address.home.notFound">No Addresses found</span>
+  </div>
+
+  <div *ngIf="addresses && addresses.length > 0" class="table-responsive table-entities" id="entities">
+    <table aria-describedby="page-heading" class="table table-striped">
+      <thead>
+        <tr (sortChange)="navigateToWithComponentValues()" [(ascending)]="ascending" [(predicate)]="predicate" jhiSort>
+          <th jhiSortBy="id" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="recordUniqueIdentifier" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.address.recordUniqueIdentifier">Record Unique Identifier</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="addressId" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.address.addressId">Address Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="addresssName" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.address.addresssName">Addresss Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="addressDescription" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.address.addressDescription">Address Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="createdAt" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.address.createdAt">Created At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="updatedAt" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.address.updatedAt">Updated At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="isDeleted" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.address.isDeleted">Is Deleted</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let address of addresses; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/address', address.id, 'view']">{{ address.id }}</a>
+          </td>
+          <td>{{ address.recordUniqueIdentifier }}</td>
+          <td>{{ address.addressId }}</td>
+          <td>{{ address.addresssName }}</td>
+          <td>{{ address.addressDescription }}</td>
+          <td>{{ address.createdAt | formatMediumDate }}</td>
+          <td>{{ address.updatedAt | formatMediumDate }}</td>
+          <td>{{ address.isDeleted | formatMediumDate }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                [routerLink]="['/address', address.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+                type="submit"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                [routerLink]="['/address', address.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+                type="submit"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button (click)="delete(address)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton" type="submit">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

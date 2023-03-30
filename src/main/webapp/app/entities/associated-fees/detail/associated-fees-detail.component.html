@@ -1,0 +1,94 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="associatedFees">
+      <h2 data-cy="associatedFeesDetailsHeading"><span jhiTranslate="schoolpayApp.associatedFees.detail.title">Associated Fees</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ associatedFees.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.recordUniqueIdentifier">Record Unique Identifier</span></dt>
+        <dd>
+          <span>{{ associatedFees.recordUniqueIdentifier }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.feeId">Fee Id</span></dt>
+        <dd>
+          <span>{{ associatedFees.feeId }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.feeCode">Fee Code</span></dt>
+        <dd>
+          <span>{{ associatedFees.feeCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.feeDescription">Fee Description</span></dt>
+        <dd>
+          <span>{{ associatedFees.feeDescription }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.status">Status</span></dt>
+        <dd>
+          <span>{{ associatedFees.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.freeField1">Free Field 1</span></dt>
+        <dd>
+          <span>{{ associatedFees.freeField1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.freeField2">Free Field 2</span></dt>
+        <dd>
+          <span>{{ associatedFees.freeField2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.freeField3">Free Field 3</span></dt>
+        <dd>
+          <span>{{ associatedFees.freeField3 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ associatedFees.createdAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ associatedFees.updatedAt | formatMediumDate }}</span>
+        </dd>
+        <dt>
+          <span [ngbTooltip]="'schoolpayApp.associatedFees.help.isDeleted' | translate" jhiTranslate="schoolpayApp.associatedFees.isDeleted"
+            >Is Deleted</span
+          >
+        </dt>
+        <dd>
+          <span>{{ associatedFees.isDeleted | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.associatedFees.studentClass">Student Class</span></dt>
+        <dd>
+          <div *ngIf="associatedFees.studentClass">
+            <a [routerLink]="['/student-class', associatedFees.studentClass.id, 'view']">{{ associatedFees.studentClass.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton" type="submit">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button [routerLink]="['/associated-fees', associatedFees.id, 'edit']" class="btn btn-primary" type="button">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

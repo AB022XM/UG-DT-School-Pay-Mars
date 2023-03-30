@@ -1,0 +1,96 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="school">
+      <h2 data-cy="schoolDetailsHeading"><span jhiTranslate="schoolpayApp.school.detail.title">School</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ school.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.recordUniqueIdentifier">Record Unique Identifier</span></dt>
+        <dd>
+          <span>{{ school.recordUniqueIdentifier }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.schoolId">School Id</span></dt>
+        <dd>
+          <span>{{ school.schoolId }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.schoolCode">School Code</span></dt>
+        <dd>
+          <span>{{ school.schoolCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.schoolPhoneNumber">School Phone Number</span></dt>
+        <dd>
+          <span>{{ school.schoolPhoneNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.schoolAlternativePhoneNumber">School Alternative Phone Number</span></dt>
+        <dd>
+          <span>{{ school.schoolAlternativePhoneNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.schoolemailAddess">Schoolemail Addess</span></dt>
+        <dd>
+          <span>{{ school.schoolemailAddess }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.schoolName">School Name</span></dt>
+        <dd>
+          <span>{{ school.schoolName }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.status">Status</span></dt>
+        <dd>
+          <span>{{ school.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.freeField1">Free Field 1</span></dt>
+        <dd>
+          <span>{{ school.freeField1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.freeField2">Free Field 2</span></dt>
+        <dd>
+          <span>{{ school.freeField2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.freeField3">Free Field 3</span></dt>
+        <dd>
+          <span>{{ school.freeField3 }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ school.createdAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ school.updatedAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.school.isDeleted">Is Deleted</span></dt>
+        <dd>
+          <span>{{ school.isDeleted | formatMediumDate }}</span>
+        </dd>
+      </dl>
+
+      <button (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton" type="submit">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button [routerLink]="['/school', school.id, 'edit']" class="btn btn-primary" type="button">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

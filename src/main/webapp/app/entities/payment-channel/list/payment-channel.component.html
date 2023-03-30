@@ -1,0 +1,170 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div>
+  <h2 data-cy="PaymentChannelHeading" id="page-heading">
+    <span jhiTranslate="schoolpayApp.paymentChannel.home.title">Payment Channels</span>
+
+    <div class="d-flex justify-content-end">
+      <button (click)="load()" [disabled]="isLoading" class="btn btn-info me-2">
+        <fa-icon [spin]="isLoading" icon="sync"></fa-icon>
+        <span jhiTranslate="schoolpayApp.paymentChannel.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        [routerLink]="['/payment-channel/new']"
+        class="btn btn-primary jh-create-entity create-payment-channel"
+        data-cy="entityCreateButton"
+        id="jh-create-entity"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="schoolpayApp.paymentChannel.home.createLabel"> Create a new Payment Channel </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div *ngIf="paymentChannels?.length === 0" class="alert alert-warning" id="no-result">
+    <span jhiTranslate="schoolpayApp.paymentChannel.home.notFound">No Payment Channels found</span>
+  </div>
+
+  <div *ngIf="paymentChannels && paymentChannels.length > 0" class="table-responsive table-entities" id="entities">
+    <table aria-describedby="page-heading" class="table table-striped">
+      <thead>
+        <tr (sortChange)="navigateToWithComponentValues()" [(ascending)]="ascending" [(predicate)]="predicate" jhiSort>
+          <th jhiSortBy="id" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="recordUniqueIdentifier" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.recordUniqueIdentifier">Record Unique Identifier</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="channelId" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.channelId">Channel Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="channelCode" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.channelCode">Channel Code</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="channelName" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.channelName">Channel Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="status" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.status">Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="freeField1" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.freeField1">Free Field 1</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="freeField2" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.freeField2">Free Field 2</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="freeField3" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.freeField3">Free Field 3</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="createdAt" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.createdAt">Created At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="updatedAt" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.updatedAt">Updated At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="isDeleted" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.paymentChannel.isDeleted">Is Deleted</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let paymentChannel of paymentChannels; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/payment-channel', paymentChannel.id, 'view']">{{ paymentChannel.id }}</a>
+          </td>
+          <td>{{ paymentChannel.recordUniqueIdentifier }}</td>
+          <td>{{ paymentChannel.channelId }}</td>
+          <td>{{ paymentChannel.channelCode }}</td>
+          <td>{{ paymentChannel.channelName }}</td>
+          <td>{{ paymentChannel.status }}</td>
+          <td>{{ paymentChannel.freeField1 }}</td>
+          <td>{{ paymentChannel.freeField2 }}</td>
+          <td>{{ paymentChannel.freeField3 }}</td>
+          <td>{{ paymentChannel.createdAt | formatMediumDatetime }}</td>
+          <td>{{ paymentChannel.updatedAt | formatMediumDate }}</td>
+          <td>{{ paymentChannel.isDeleted }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                [routerLink]="['/payment-channel', paymentChannel.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+                type="submit"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                [routerLink]="['/payment-channel', paymentChannel.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+                type="submit"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button (click)="delete(paymentChannel)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton" type="submit">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

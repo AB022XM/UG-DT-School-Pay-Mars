@@ -1,0 +1,181 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div>
+  <h2 data-cy="SchoolHeading" id="page-heading">
+    <span jhiTranslate="schoolpayApp.school.home.title">Schools</span>
+
+    <div class="d-flex justify-content-end">
+      <button (click)="load()" [disabled]="isLoading" class="btn btn-info me-2">
+        <fa-icon [spin]="isLoading" icon="sync"></fa-icon>
+        <span jhiTranslate="schoolpayApp.school.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        [routerLink]="['/school/new']"
+        class="btn btn-primary jh-create-entity create-school"
+        data-cy="entityCreateButton"
+        id="jh-create-entity"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="schoolpayApp.school.home.createLabel"> Create a new School </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div *ngIf="schools?.length === 0" class="alert alert-warning" id="no-result">
+    <span jhiTranslate="schoolpayApp.school.home.notFound">No Schools found</span>
+  </div>
+
+  <div *ngIf="schools && schools.length > 0" class="table-responsive table-entities" id="entities">
+    <table aria-describedby="page-heading" class="table table-striped">
+      <thead>
+        <tr (sortChange)="navigateToWithComponentValues()" [(ascending)]="ascending" [(predicate)]="predicate" jhiSort>
+          <th jhiSortBy="id" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="recordUniqueIdentifier" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.recordUniqueIdentifier">Record Unique Identifier</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="schoolId" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.schoolId">School Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="schoolCode" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.schoolCode">School Code</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="schoolPhoneNumber" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.schoolPhoneNumber">School Phone Number</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="schoolAlternativePhoneNumber" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.schoolAlternativePhoneNumber">School Alternative Phone Number</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="schoolemailAddess" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.schoolemailAddess">Schoolemail Addess</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="schoolName" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.schoolName">School Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="status" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.status">Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="freeField1" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.freeField1">Free Field 1</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="freeField2" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.freeField2">Free Field 2</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="freeField3" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.freeField3">Free Field 3</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="createdAt" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.createdAt">Created At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="updatedAt" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.updatedAt">Updated At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th jhiSortBy="isDeleted" scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="schoolpayApp.school.isDeleted">Is Deleted</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let school of schools; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/school', school.id, 'view']">{{ school.id }}</a>
+          </td>
+          <td>{{ school.recordUniqueIdentifier }}</td>
+          <td>{{ school.schoolId }}</td>
+          <td>{{ school.schoolCode }}</td>
+          <td>{{ school.schoolPhoneNumber }}</td>
+          <td>{{ school.schoolAlternativePhoneNumber }}</td>
+          <td>{{ school.schoolemailAddess }}</td>
+          <td>{{ school.schoolName }}</td>
+          <td>{{ school.status }}</td>
+          <td>{{ school.freeField1 }}</td>
+          <td>{{ school.freeField2 }}</td>
+          <td>{{ school.freeField3 }}</td>
+          <td>{{ school.createdAt | formatMediumDate }}</td>
+          <td>{{ school.updatedAt | formatMediumDate }}</td>
+          <td>{{ school.isDeleted | formatMediumDate }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button [routerLink]="['/school', school.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton" type="submit">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button [routerLink]="['/school', school.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton" type="submit">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button (click)="delete(school)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton" type="submit">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+{
+  "applications": ["Schoolpay"],
+  "changelogDate": "20230330170316",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "student_class",
+  "fields": [
+    {
+      "fieldName": "recordUniqueIdentifier",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "studentClassId",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "studentClassCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "studentClassName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "studentClassDescription",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "freeField1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "isDeleted",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "StudentClass",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "associatedFees",
+      "otherEntityRelationshipName": "studentClass",
+      "relationshipName": "associatedFees",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "studentClass",
+      "relationshipName": "student",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceClass"
+}

@@ -1,0 +1,52 @@
+{
+  "applications": ["Schoolpay"],
+  "changelogDate": "20230330170317",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "contact_info",
+  "fields": [
+    {
+      "fieldName": "recordUniqueIdentifier",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "contactId",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique"]
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "emailAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "parentsPhoneNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "isDeleted",
+      "fieldType": "LocalDate",
+      "javadoc": "this is used to identify whether the\\nrecord has been deleted or not (Y-deleted, N-Not deleted)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ContactInfo",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": false,
+  "service": "serviceClass"
+}

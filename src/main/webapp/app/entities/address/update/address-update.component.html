@@ -1,0 +1,195 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form (ngSubmit)="save()" [formGroup]="editForm" name="editForm" novalidate role="form">
+      <h2 data-cy="AddressCreateUpdateHeading" id="jhi-address-heading" jhiTranslate="schoolpayApp.address.home.createOrEditLabel">
+        Create or edit a Address
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div *ngIf="editForm.controls.id.value !== null" class="row mb-3">
+          <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+          <input [readonly]="true" class="form-control" data-cy="id" formControlName="id" id="field_id" name="id" type="number" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_recordUniqueIdentifier" jhiTranslate="schoolpayApp.address.recordUniqueIdentifier"
+            >Record Unique Identifier</label
+          >
+          <input
+            class="form-control"
+            data-cy="recordUniqueIdentifier"
+            formControlName="recordUniqueIdentifier"
+            id="field_recordUniqueIdentifier"
+            name="recordUniqueIdentifier"
+            type="text"
+          />
+          <div
+            *ngIf="
+              editForm.get('recordUniqueIdentifier')!.invalid &&
+              (editForm.get('recordUniqueIdentifier')!.dirty || editForm.get('recordUniqueIdentifier')!.touched)
+            "
+          >
+            <small
+              *ngIf="editForm.get('recordUniqueIdentifier')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_addressId" jhiTranslate="schoolpayApp.address.addressId">Address Id</label>
+          <input class="form-control" data-cy="addressId" formControlName="addressId" id="field_addressId" name="addressId" type="number" />
+          <div *ngIf="editForm.get('addressId')!.invalid && (editForm.get('addressId')!.dirty || editForm.get('addressId')!.touched)">
+            <small
+              *ngIf="editForm.get('addressId')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              [hidden]="!editForm.get('addressId')?.errors?.number"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_addresssName" jhiTranslate="schoolpayApp.address.addresssName">Addresss Name</label>
+          <input
+            class="form-control"
+            data-cy="addresssName"
+            formControlName="addresssName"
+            id="field_addresssName"
+            name="addresssName"
+            type="text"
+          />
+          <div
+            *ngIf="editForm.get('addresssName')!.invalid && (editForm.get('addresssName')!.dirty || editForm.get('addresssName')!.touched)"
+          >
+            <small
+              *ngIf="editForm.get('addresssName')?.errors?.required"
+              class="form-text text-danger"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_addressDescription" jhiTranslate="schoolpayApp.address.addressDescription"
+            >Address Description</label
+          >
+          <input
+            class="form-control"
+            data-cy="addressDescription"
+            formControlName="addressDescription"
+            id="field_addressDescription"
+            name="addressDescription"
+            type="text"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="schoolpayApp.address.createdAt">Created At</label>
+          <div class="input-group">
+            <input
+              #createdAtDp="ngbDatepicker"
+              class="form-control"
+              data-cy="createdAt"
+              formControlName="createdAt"
+              id="field_createdAt"
+              name="createdAt"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="createdAtDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_updatedAt" jhiTranslate="schoolpayApp.address.updatedAt">Updated At</label>
+          <div class="input-group">
+            <input
+              #updatedAtDp="ngbDatepicker"
+              class="form-control"
+              data-cy="updatedAt"
+              formControlName="updatedAt"
+              id="field_updatedAt"
+              name="updatedAt"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="updatedAtDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label
+            [ngbTooltip]="'schoolpayApp.address.help.isDeleted' | translate"
+            class="form-label"
+            for="field_isDeleted"
+            jhiTranslate="schoolpayApp.address.isDeleted"
+            >Is Deleted</label
+          >
+          <div class="input-group">
+            <input
+              #isDeletedDp="ngbDatepicker"
+              class="form-control"
+              data-cy="isDeleted"
+              formControlName="isDeleted"
+              id="field_isDeleted"
+              name="isDeleted"
+              ngbDatepicker
+              type="text"
+            />
+            <button (click)="isDeletedDp.toggle()" class="btn btn-secondary" type="button">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button (click)="previousState()" class="btn btn-secondary" data-cy="entityCreateCancelButton" id="cancel-save" type="button">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+          data-cy="entityCreateSaveButton"
+          id="save-entity"
+          type="submit"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<!--
+  ~ Copyright (c) 2023.   - Digital Transformation Team- ABSA BANK UGANDA.  All Rights Reserved. You may not use, distribute and/or modify this code.
+  ~ Contributors
+  ~
+  ~ Developer Details
+  ~ Name: Banada Ismael
+  ~ Department: IT-Digital transformation team
+  ~ Organisation: ABSA Bank Group
+  ~
+  ~
+  -->
+
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="contactInfo">
+      <h2 data-cy="contactInfoDetailsHeading"><span jhiTranslate="schoolpayApp.contactInfo.detail.title">Contact Info</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ contactInfo.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.contactInfo.recordUniqueIdentifier">Record Unique Identifier</span></dt>
+        <dd>
+          <span>{{ contactInfo.recordUniqueIdentifier }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.contactInfo.contactId">Contact Id</span></dt>
+        <dd>
+          <span>{{ contactInfo.contactId }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.contactInfo.phoneNumber">Phone Number</span></dt>
+        <dd>
+          <span>{{ contactInfo.phoneNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.contactInfo.emailAddress">Email Address</span></dt>
+        <dd>
+          <span>{{ contactInfo.emailAddress }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.contactInfo.parentsPhoneNumber">Parents Phone Number</span></dt>
+        <dd>
+          <span>{{ contactInfo.parentsPhoneNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.contactInfo.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ contactInfo.createdAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="schoolpayApp.contactInfo.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ contactInfo.updatedAt | formatMediumDate }}</span>
+        </dd>
+        <dt>
+          <span [ngbTooltip]="'schoolpayApp.contactInfo.help.isDeleted' | translate" jhiTranslate="schoolpayApp.contactInfo.isDeleted"
+            >Is Deleted</span
+          >
+        </dt>
+        <dd>
+          <span>{{ contactInfo.isDeleted | formatMediumDate }}</span>
+        </dd>
+      </dl>
+
+      <button (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton" type="submit">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button [routerLink]="['/contact-info', contactInfo.id, 'edit']" class="btn btn-primary" type="button">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
